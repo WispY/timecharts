@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.sf.timecharts</groupId>
+    <artifactId>time-charts</artifactId>
+    <packaging>jar</packaging>
+    <name>Time Charts</name>
+    <version>1.0</version>
+    <description>Projects allows to easily draw charts with models of timeline type</description>
+    <url>http://timecharts.sf.net/</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://sourceforge.net/p/timecharts/code/ref/master/</url>
+        <connection>https://sourceforge.net/p/timecharts/code/ref/master/</connection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>leonid</id>
+            <name>Leonid Poliakov</name>
+            <email>owispyo@gmail.com</email>
+        </developer>
+    </developers>
+
+    <!--<dependencies>-->
+    <!--<dependency>-->
+    <!--<groupId>...</groupId>-->
+    <!--<artifactId>...</artifactId>-->
+    <!--<version>...</version>-->
+    <!--</dependency>-->
+    <!--</dependencies>-->
+
+</project>
