@@ -12,6 +12,7 @@
     <description>Projects allows to easily draw charts with models of timeline type</description>
     <url>http://timecharts.sf.net/</url>
 
+    <!-- FOR MAVEN CENTRAL -->
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -33,12 +34,18 @@
         </developer>
     </developers>
 
-    <!--<dependencies>-->
-    <!--<dependency>-->
-    <!--<groupId>...</groupId>-->
-    <!--<artifactId>...</artifactId>-->
-    <!--<version>...</version>-->
-    <!--</dependency>-->
-    <!--</dependencies>-->
+    <!-- EXTERNAL DEPENDENCIES -->
+    <dependencies>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+    </dependencies>
 
 </project>
