@@ -37,32 +37,30 @@ import static net.sf.timecharts.core.utils.GraphUtils.getPosition;
  * @author WispY
  */
 public class ChartAreaBox extends LayoutBox {
-    protected static final double GRANULARITY_THRESHOLD = 1.5;
+    private static final double GRANULARITY_THRESHOLD = 1.5;
 
-    protected ChartAreaStyle style;
-    protected ValuesStyle valuesStyle;
-    protected TimelineStyle timelineStyle;
-    protected Color defaultItemColor;
+    private ChartAreaStyle style;
+    private ValuesStyle valuesStyle;
+    private TimelineStyle timelineStyle;
+    private Color defaultItemColor;
 
-    protected Model model;
+    private int graphWidth;
+    private int graphHeight;
+    private int graphX;
+    private int graphY;
+    private double valueInterval;
 
-    protected int graphWidth;
-    protected int graphHeight;
-    protected int graphX;
-    protected int graphY;
-    protected double valueInterval;
+    private int valuesWidth;
+    private Map<Double, String> values;
 
-    protected int valuesWidth;
-    protected Map<Double, String> values;
+    private int timelineHeight;
+    private Map<Long, String> times;
+    private Set<Long> specialTimes;
+    private long timeWidth;
 
-    protected int timelineHeight;
-    protected Map<Long, String> times;
-    protected Set<Long> specialTimes;
-    protected long timeWidth;
-
-    protected long end;
-    protected long start;
-    protected long granularity;
+    private long end;
+    private long start;
+    private long granularity;
 
     public ChartAreaBox(Model model, Map<Double, String> values, int valuesWidth, Map<Long, String> times, Set<Long> specialTimes, int timelineHeight, ChartAreaStyle style, Color defaultItemColor) {
         super(model, boxWidth(valuesWidth, style), boxHeight(timelineHeight, style));
@@ -99,7 +97,7 @@ public class ChartAreaBox extends LayoutBox {
         drawValues(graphics);
     }
 
-    protected void init() {
+    private void init() {
         graphWidth = size.width - boxWidth(valuesWidth, style);
         graphHeight = size.height - boxHeight(timelineHeight, style);
         graphX = style.getValuesSpacing() * 2 + valuesWidth;
@@ -111,7 +109,7 @@ public class ChartAreaBox extends LayoutBox {
         granularity = model.getGranularity();
     }
 
-    protected void drawGrid(Graphics2D graphics) {
+    private void drawGrid(Graphics2D graphics) {
         graphics.setColor(style.getGrid());
 
         // draw horizontal lines
@@ -130,7 +128,7 @@ public class ChartAreaBox extends LayoutBox {
         graphics.drawLine(0, graphY + graphHeight, size.width, graphY + graphHeight);
     }
 
-    protected void drawBorders(Graphics2D graphics) {
+    private void drawBorders(Graphics2D graphics) {
         //graphics.setColor(style.getGrid());
 
         // draw bottom line
@@ -140,7 +138,7 @@ public class ChartAreaBox extends LayoutBox {
         //graphics.drawLine(0, 0, size.width, 0);
     }
 
-    protected void drawItems(Graphics2D graphics) {
+    private void drawItems(Graphics2D graphics) {
         boolean placeDots = getPosition(model.getGranularity(), 0, timeWidth, graphWidth) >= style.getDotGap();
         int dotSize = style.getDotSize();
         boolean placeMaxDots = model.getItems().size() == 1;
@@ -370,7 +368,7 @@ public class ChartAreaBox extends LayoutBox {
         return graphX + getPosition(timestamp, start, timeWidth, graphWidth);
     }
 
-    protected int getY(double value, double yHeight) {
+    private int getY(double value, double yHeight) {
         int pointY = getPosition(value, model.getMinY(), yHeight, graphHeight);
         if (pointY == 0) {
             pointY = 1;

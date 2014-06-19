@@ -33,20 +33,19 @@ import java.util.List;
  * @author WispY
  */
 public class GraphBodyBox extends LayoutBox {
-    protected GraphGridStyle style;
-    protected Color defaultItemColor;
-    protected Color defaultBottomColor;
-    protected Color defaultTopColor;
-    protected Model model;
+    private GraphGridStyle style;
+    private Color defaultItemColor;
+    private Color defaultBottomColor;
+    private Color defaultTopColor;
 
-    protected int graphWidth;
-    protected int graphHeight;
-    protected double yHeight;
-    protected long timeWidth;
-    protected long end;
-    protected long start;
-    protected long granularity;
-    protected Timeline timeline;
+    private int graphWidth;
+    private int graphHeight;
+    private double yHeight;
+    private long timeWidth;
+    private long end;
+    private long start;
+    private long granularity;
+    private Timeline timeline;
 
     public GraphBodyBox(Model model, int width, int height, GraphGridStyle style, Color defaultItemColor, Color defaultBottomColor, Color defaultTopColor, Timeline timeline) {
         super(model, width, height);
@@ -65,7 +64,7 @@ public class GraphBodyBox extends LayoutBox {
         drawValues(graphics);
     }
 
-    protected void init() {
+    private void init() {
         graphWidth = size.width;
         graphHeight = size.height;
         yHeight = model.getMaxY() - model.getMinY();
@@ -75,7 +74,7 @@ public class GraphBodyBox extends LayoutBox {
         granularity = model.getGranularity();
     }
 
-    protected void drawGrid(Graphics2D graphics) {
+    private void drawGrid(Graphics2D graphics) {
         // draw vertical lines
         graphics.setColor(style.getGrid());
 
@@ -101,7 +100,7 @@ public class GraphBodyBox extends LayoutBox {
         }
     }
 
-    protected void drawAxes(Graphics2D graphics) {
+    private void drawAxes(Graphics2D graphics) {
         int arrow = style.getArrowSize();
         graphics.setColor(style.getAxis());
 
@@ -126,7 +125,7 @@ public class GraphBodyBox extends LayoutBox {
         graphics.translate(0, arrow);
     }
 
-    protected void drawValues(Graphics2D graphics) {
+    private void drawValues(Graphics2D graphics) {
         for (Item item : model.getItems()) {
             Color color = item.getColor();
             if (color == null) {
@@ -205,7 +204,7 @@ public class GraphBodyBox extends LayoutBox {
         MAIN, TOP, BOTTOM
     }
 
-    protected int getY(double value, double yHeight) {
+    private int getY(double value, double yHeight) {
         int pointY = GraphUtils.getPosition(value, model.getMinY(), yHeight, graphHeight);
         if (pointY == 0) {
             pointY = 1;

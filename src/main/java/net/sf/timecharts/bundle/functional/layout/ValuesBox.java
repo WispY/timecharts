@@ -28,8 +28,8 @@ import static net.sf.timecharts.core.utils.GraphUtils.drawString;
  * @author WispY
  */
 public class ValuesBox extends LayoutBox {
-    protected ValuesStyle style;
-    protected Map<Double, String> labels;
+    private ValuesStyle style;
+    private Map<Double, String> labels;
 
     public ValuesBox(Model model, int width, int height, ValuesStyle style, Map<Double, String> labels) {
         super(model, width, height);

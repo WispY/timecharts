@@ -30,9 +30,9 @@ import java.util.Set;
  * @author WispY
  */
 public class TimelineBox extends LayoutBox {
-    protected TimelineStyle style;
-    protected Map<Long, String> labels;
-    protected Set<Long> specialLabels;
+    private TimelineStyle style;
+    private Map<Long, String> labels;
+    private Set<Long> specialLabels;
 
     public TimelineBox(Model model, int width, int height, TimelineStyle style, Map<Long, String> labels, Set<Long> specialLabels) {
         super(model, width, height);

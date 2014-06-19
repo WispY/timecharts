@@ -26,11 +26,11 @@ import java.awt.*;
  * @author WispY
  */
 public class BigNumberBox extends LayoutBox {
-    protected String label;
-    protected String value;
-    protected Color color;
-    protected Color defaultItemColor;
-    protected BigNumberStyle style;
+    private String label;
+    private String value;
+    private Color color;
+    private Color defaultItemColor;
+    private BigNumberStyle style;
 
     public BigNumberBox(Model model, String label, String value, Color color, Color defaultItemColor, BigNumberStyle style) {
         super(model);
