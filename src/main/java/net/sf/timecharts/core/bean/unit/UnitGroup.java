@@ -25,7 +25,7 @@ public class UnitGroup {
     private List<Unit> units;
     private Double conversionRate;
 
-    private UnitGroup(Double conversionRate, Unit... units) {
+    public UnitGroup(Double conversionRate, Unit... units) {
         this.units = Arrays.asList(units);
         this.conversionRate = conversionRate;
     }

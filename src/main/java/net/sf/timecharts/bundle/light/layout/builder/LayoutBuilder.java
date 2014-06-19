@@ -49,7 +49,7 @@ import static org.apache.commons.lang3.text.WordUtils.capitalize;
  */
 public class LayoutBuilder extends BaseLayoutBuilder<ILightStyle> {
 
-    protected LayoutBuilder() {
+    public LayoutBuilder() {
         super(ILightStyle.class);
     }
 

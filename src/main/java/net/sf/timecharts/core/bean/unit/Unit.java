@@ -24,11 +24,11 @@ public class Unit {
     private Double fixedMin;
     private Double fixedMax;
 
-    private Unit(String fullName, String shortName) {
+    public Unit(String fullName, String shortName) {
         this(fullName, shortName, null, null);
     }
 
-    private Unit(String fullName, String shortName, Double fixedMin, Double fixedMax) {
+    public Unit(String fullName, String shortName, Double fixedMin, Double fixedMax) {
         this.fullName = fullName;
         this.shortName = shortName;
         this.fixedMin = fixedMin;
