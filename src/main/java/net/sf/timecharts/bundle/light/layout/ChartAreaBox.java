@@ -231,7 +231,9 @@ public class ChartAreaBox extends LayoutBox {
                 addPointToPath(path, value, value.getBottom(), startPath, maxGranularity, true, firstGroup && index == 0);
                 startPath = false;
             }
-            path.closePath();
+            if (!startPath) {
+                path.closePath();
+            }
             results.add(path);
             firstGroup = false;
         }
