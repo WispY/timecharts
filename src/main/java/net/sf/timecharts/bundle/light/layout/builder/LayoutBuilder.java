@@ -26,14 +26,13 @@ import net.sf.timecharts.core.bean.model.Timeline;
 import net.sf.timecharts.core.bean.unit.Unit;
 import net.sf.timecharts.core.layout.align.HorizontalAlign;
 import net.sf.timecharts.core.layout.align.VerticalAlign;
+import net.sf.timecharts.core.layout.base.ITimeResolver;
 import net.sf.timecharts.core.layout.base.LayoutBox;
 import net.sf.timecharts.core.layout.base.LayoutOptions;
 import net.sf.timecharts.core.layout.base.common.TextBox;
 import net.sf.timecharts.core.layout.builder.BaseLayoutBuilder;
 import net.sf.timecharts.core.style.IStyle;
 import net.sf.timecharts.core.utils.UnitsUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -42,7 +41,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static net.sf.timecharts.core.utils.LayoutUtils.capitalize;
+import static net.sf.timecharts.core.utils.LayoutUtils.isNotBlank;
 
 /**
  * @author WispY
@@ -86,7 +86,7 @@ public class LayoutBuilder extends BaseLayoutBuilder<ILightStyle> {
         }
 
         if (!isDisabled(options, IFeature.CHART)) {
-            LayoutBox chartArea = buildChartArea(model, style.getChartAreaStyle(), style.getDefaultItemColor(), timeline);
+            LayoutBox chartArea = buildChartArea(model, style.getChartAreaStyle(), style.getDefaultItemColor(), timeline, options);
             layout.addChild(chartArea, 0, gridY++);
             features.put(IFeature.CHART, chartArea);
         }
@@ -112,7 +112,7 @@ public class LayoutBuilder extends BaseLayoutBuilder<ILightStyle> {
         return layout;
     }
 
-    private ChartAreaBox buildChartArea(Model model, ChartAreaStyle style, Color defaultItemColor, Timeline timeline) {
+    private ChartAreaBox buildChartArea(Model model, ChartAreaStyle style, Color defaultItemColor, Timeline timeline, LayoutOptions options) {
         int valueWidth;
         Map<Double, String> values;
         // build values
@@ -162,8 +162,8 @@ public class LayoutBuilder extends BaseLayoutBuilder<ILightStyle> {
             long currentTime = timeline.start + timeline.offset;
             while (currentTime < timeline.end) {
                 if (currentTime >= timeline.start && currentTime <= timeline.end) {
-                    DateTime dateTime = new DateTime(currentTime);
-                    boolean special = dateTime.getMinuteOfHour() == 0 && dateTime.getSecondOfMinute() == 0;
+                    ITimeResolver resolver = options.getTimeResolver();
+                    boolean special = resolver.getMinuteOfHour(currentTime) == 0 && resolver.getSecondOfMinute(currentTime) == 0;
                     timesHeight = buildTimeLabelAndGetHeight(currentTime, times.isEmpty() ? timeZoneFormat : format, timesHeight, special, times, specialTimes, timelineStyle);
                 }
                 currentTime += timeline.gap;
@@ -230,7 +230,7 @@ public class LayoutBuilder extends BaseLayoutBuilder<ILightStyle> {
     }
 
     private String swapLabel(String value, LegendStyle style) {
-        return StringUtils.isNotBlank(value) ? value : style.getEmptyValue();
+        return isNotBlank(value) ? value : style.getEmptyValue();
     }
 
     private LayoutBox buildLegendHeader(String label, LegendStyle style, double weight) {

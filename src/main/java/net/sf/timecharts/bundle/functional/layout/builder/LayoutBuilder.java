@@ -27,13 +27,13 @@ import net.sf.timecharts.core.bean.model.Timeline;
 import net.sf.timecharts.core.bean.unit.Unit;
 import net.sf.timecharts.core.layout.align.HorizontalAlign;
 import net.sf.timecharts.core.layout.align.VerticalAlign;
+import net.sf.timecharts.core.layout.base.ITimeResolver;
 import net.sf.timecharts.core.layout.base.LayoutBox;
 import net.sf.timecharts.core.layout.base.LayoutOptions;
 import net.sf.timecharts.core.layout.base.common.TextBox;
 import net.sf.timecharts.core.layout.builder.BaseLayoutBuilder;
 import net.sf.timecharts.core.style.IStyle;
 import net.sf.timecharts.core.utils.UnitsUtils;
-import org.joda.time.DateTime;
 
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -90,7 +90,7 @@ public class LayoutBuilder extends BaseLayoutBuilder<IFunctionalStyle> {
             chartArea.align.x = HorizontalAlign.CENTER;
 
             chartArea.addChild(buildChart(model, style.getGraphGridStyle(), style, timeline), 1, 0);
-            chartArea.addChild(buildTime(model, style.getTimelineStyle(), timeline), 1, 1);
+            chartArea.addChild(buildTime(model, style.getTimelineStyle(), timeline, options), 1, 1);
             chartArea.addChild(buildValue(model, style.getValuesStyle()), 0, 0);
             chartArea.addChild(buildTimeZone(model, style.getTimelineStyle()), 0, 1);
             layout.addChild(chartArea, 0, gridY++);
@@ -122,7 +122,7 @@ public class LayoutBuilder extends BaseLayoutBuilder<IFunctionalStyle> {
         return labelLayoutBox;
     }
 
-    protected TimelineBox buildTime(Model model, TimelineStyle style, Timeline timeline) {
+    protected TimelineBox buildTime(Model model, TimelineStyle style, Timeline timeline, LayoutOptions options) {
         Map<Long, String> labels = new HashMap<Long, String>();
         Set<Long> specialLabels = new HashSet<Long>();
 
@@ -142,8 +142,8 @@ public class LayoutBuilder extends BaseLayoutBuilder<IFunctionalStyle> {
         long currentTime = timeline.start + timeline.offset;
         while (currentTime < timeline.end) {
             if (currentTime >= timeline.start + gapTimeWidth && currentTime <= timeline.end - gapTimeWidth) {
-                DateTime dateTime = new DateTime(currentTime);
-                boolean special = dateTime.getMinuteOfHour() == 0 && dateTime.getSecondOfMinute() == 0;
+                ITimeResolver resolver = options.getTimeResolver();
+                boolean special = resolver.getMinuteOfHour(currentTime) == 0 && resolver.getSecondOfMinute(currentTime) == 0;
                 height = buildTimeLabelAndGetWidth(currentTime, format, height, special, labels, specialLabels, style);
             }
             currentTime += timeline.gap;

@@ -25,6 +25,7 @@ import java.util.Set;
 public class LayoutOptions {
     private Set<String> disabledFeatures;
     private IStyle style;
+    private ITimeResolver timeResolver;
     private Class<? extends IStyle> styleType;
     private boolean debug;
 
@@ -46,6 +47,14 @@ public class LayoutOptions {
 
     public Class<? extends IStyle> getStyleType() {
         return styleType;
+    }
+
+    public ITimeResolver getTimeResolver() {
+        return timeResolver;
+    }
+
+    public void setTimeResolver(ITimeResolver timeResolver) {
+        this.timeResolver = timeResolver;
     }
 
     public void setStyleType(Class<? extends IStyle> styleType) {
